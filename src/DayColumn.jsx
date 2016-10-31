@@ -181,19 +181,20 @@ let DaySlot = React.createClass({
 
     endSlot = Math.max(endSlot, startSlot + this.props.step) //must be at least one `step` high
 
-    let eventOffset = this.props.eventOffset || 10
-      , isRtl = this.props.rtl;
+    let eventOffset = this.props.eventOffset > 15 ? this.props.eventOffset : 5;
+    let isRtl = this.props.rtl;
 
     let top = ((startSlot / this._totalMin) * 100);
     let bottom = ((endSlot / this._totalMin) * 100);
     let per = leftOffset === 0 ? 0 : leftOffset * eventOffset;
-    let rightDiff = (eventOffset / (leftOffset + 1));
+    // let rightDiff = (eventOffset / (leftOffset + 1));
 
     return {
       top: top + '%',
       height: bottom - top + '%',
       [isRtl ? 'right' : 'left']: per + '%',
-      width: (leftOffset === 0 ? (100 - eventOffset) : (100 - per) - rightDiff) + '%'
+      [isRtl ? 'left' : 'right']: 0,
+      width: (leftOffset === 0 ? 100 : (100 - per)) + '%'
     }
   },
 

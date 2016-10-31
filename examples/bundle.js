@@ -32508,18 +32508,18 @@
 	
 	    endSlot = Math.max(endSlot, startSlot + this.props.step); //must be at least one `step` high
 	
-	    var eventOffset = this.props.eventOffset || 10,
-	        isRtl = this.props.rtl;
+	    var eventOffset = this.props.eventOffset > 15 ? this.props.eventOffset : 5;
+	    var isRtl = this.props.rtl;
 	
 	    var top = startSlot / this._totalMin * 100;
 	    var bottom = endSlot / this._totalMin * 100;
 	    var per = leftOffset === 0 ? 0 : leftOffset * eventOffset;
-	    var rightDiff = eventOffset / (leftOffset + 1);
+	    // let rightDiff = (eventOffset / (leftOffset + 1));
 	
 	    return _ref2 = {
 	      top: top + '%',
 	      height: bottom - top + '%'
-	    }, _ref2[isRtl ? 'right' : 'left'] = per + '%', _ref2.width = (leftOffset === 0 ? 100 - eventOffset : 100 - per - rightDiff) + '%', _ref2;
+	    }, _ref2[isRtl ? 'right' : 'left'] = per + '%', _ref2[isRtl ? 'left' : 'right'] = 0, _ref2.width = (leftOffset === 0 ? 100 : 100 - per) + '%', _ref2;
 	  },
 	  _selectable: function _selectable() {
 	    var _this2 = this;
