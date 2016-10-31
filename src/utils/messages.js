@@ -8,14 +8,12 @@ import invariant from 'invariant';
   week: 'week',
   day: 'day',
   month: 'month',
-  previous: 'back',
-  next: 'next',
   yesterday: 'yesterday',
   tomorrow: 'tomorrow',
   today: 'today',
   agenda: 'agenda',
 
-  showMore: total => `+${total} more`
+  showMore: total => `${total} more...`
 }
 
 export function set(key, msg){

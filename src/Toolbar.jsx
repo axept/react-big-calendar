@@ -29,7 +29,7 @@ let Toolbar = React.createClass({
           >
             <svg className='rbc-toolbar-svg-prev' viewBox="0 0 32 32">
               <g>
-                  <polyline fill="none" stroke="#000000" stroke-width="1" stroke-miterlimit="10" points="23.7,31.5 8.3,16 23.7,0.5 "></polyline>
+                  <polyline fill="none" stroke="#000000" strokeWidth="1" strokeMiterlimit="10" points="23.7,31.5 8.3,16 23.7,0.5 "></polyline>
               </g>
             </svg>
           </button>
@@ -47,7 +47,7 @@ let Toolbar = React.createClass({
           >
             <svg className='rbc-toolbar-svg-next' viewBox="0 0 32 32">
               <g>
-                  <polyline fill="none" stroke="#000000" stroke-width="1" stroke-miterlimit="10" points="23.7,31.5 8.3,16 23.7,0.5 "></polyline>
+                  <polyline fill="none" stroke="#000000" strokeWidth="1" strokeMiterlimit="10" points="23.7,31.5 8.3,16 23.7,0.5 "></polyline>
               </g>
             </svg>
           </button>

@@ -29802,15 +29802,13 @@
 	  week: 'week',
 	  day: 'day',
 	  month: 'month',
-	  previous: 'back',
-	  next: 'next',
 	  yesterday: 'yesterday',
 	  tomorrow: 'tomorrow',
 	  today: 'today',
 	  agenda: 'agenda',
 	
 	  showMore: function showMore(total) {
-	    return '+' + total + ' more';
+	    return total + ' more...';
 	  }
 	};
 	
@@ -33382,13 +33380,13 @@
 	    return _react2.default.createElement('div', { className: 'rbc-toolbar' }, _react2.default.createElement('span', { className: 'rbc-toolbar-label' }, label), _react2.default.createElement('span', { className: 'rbc-btn-group' }, this.viewNamesGroup(messages)), _react2.default.createElement('span', { className: 'rbc-btn-group' }, _react2.default.createElement('button', {
 	      type: 'button',
 	      onClick: this.navigate.bind(null, _constants.navigate.PREVIOUS)
-	    }, _react2.default.createElement('svg', { className: 'rbc-toolbar-svg-prev', viewBox: '0 0 32 32' }, _react2.default.createElement('g', null, _react2.default.createElement('polyline', { fill: 'none', stroke: '#000000', 'stroke-width': '1', 'stroke-miterlimit': '10', points: '23.7,31.5 8.3,16 23.7,0.5 ' })))), _react2.default.createElement('button', {
+	    }, _react2.default.createElement('svg', { className: 'rbc-toolbar-svg-prev', viewBox: '0 0 32 32' }, _react2.default.createElement('g', null, _react2.default.createElement('polyline', { fill: 'none', stroke: '#000000', strokeWidth: '1', strokeMiterlimit: '10', points: '23.7,31.5 8.3,16 23.7,0.5 ' })))), _react2.default.createElement('button', {
 	      type: 'button',
 	      onClick: this.navigate.bind(null, _constants.navigate.TODAY)
 	    }, messages.today), _react2.default.createElement('button', {
 	      type: 'button',
 	      onClick: this.navigate.bind(null, _constants.navigate.NEXT)
-	    }, _react2.default.createElement('svg', { className: 'rbc-toolbar-svg-next', viewBox: '0 0 32 32' }, _react2.default.createElement('g', null, _react2.default.createElement('polyline', { fill: 'none', stroke: '#000000', 'stroke-width': '1', 'stroke-miterlimit': '10', points: '23.7,31.5 8.3,16 23.7,0.5 ' }))))));
+	    }, _react2.default.createElement('svg', { className: 'rbc-toolbar-svg-next', viewBox: '0 0 32 32' }, _react2.default.createElement('g', null, _react2.default.createElement('polyline', { fill: 'none', stroke: '#000000', strokeWidth: '1', strokeMiterlimit: '10', points: '23.7,31.5 8.3,16 23.7,0.5 ' }))))));
 	  },
 	  navigate: function navigate(action) {
 	    this.props.onNavigate(action);
