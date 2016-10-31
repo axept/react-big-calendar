@@ -2,9 +2,9 @@ import { PropTypes } from 'react';
 import invariant from 'invariant';
 
 const localePropType = PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.func
-      ]);
+  PropTypes.string,
+  PropTypes.func
+]);
 
 function _format(localizer, formatter, value, format, culture) {
   let result = typeof format === 'function'

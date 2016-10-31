@@ -12,6 +12,16 @@ let Toolbar = React.createClass({
 
     return (
       <div className='rbc-toolbar'>
+        <span className='rbc-toolbar-label'>
+          { label }
+        </span>
+
+        <span className='rbc-btn-group'>
+        {
+          this.viewNamesGroup(messages)
+        }
+        </span>
+
         <span className='rbc-btn-group'>
           <button
             type='button'
@@ -31,16 +41,6 @@ let Toolbar = React.createClass({
           >
             {messages.next}
           </button>
-        </span>
-
-        <span className='rbc-toolbar-label'>
-          { label }
-        </span>
-
-        <span className='rbc-btn-group'>
-        {
-          this.viewNamesGroup(messages)
-        }
         </span>
       </div>
     );
