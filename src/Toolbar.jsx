@@ -25,21 +25,31 @@ let Toolbar = React.createClass({
         <span className='rbc-btn-group'>
           <button
             type='button'
+            onClick={this.navigate.bind(null, navigate.PREVIOUS)}
+          >
+            <svg className='rbc-toolbar-svg-prev' viewBox="0 0 32 32">
+              <g>
+                  <polyline fill="none" stroke="#000000" stroke-width="1" stroke-miterlimit="10" points="23.7,31.5 8.3,16 23.7,0.5 "></polyline>
+              </g>
+            </svg>
+          </button>
+
+          <button
+            type='button'
             onClick={this.navigate.bind(null, navigate.TODAY)}
           >
             {messages.today}
           </button>
-          <button
-            type='button'
-            onClick={this.navigate.bind(null, navigate.PREVIOUS)}
-          >
-            {messages.previous}
-          </button>
+
           <button
             type='button'
             onClick={this.navigate.bind(null, navigate.NEXT)}
           >
-            {messages.next}
+            <svg className='rbc-toolbar-svg-next' viewBox="0 0 32 32">
+              <g>
+                  <polyline fill="none" stroke="#000000" stroke-width="1" stroke-miterlimit="10" points="23.7,31.5 8.3,16 23.7,0.5 "></polyline>
+              </g>
+            </svg>
           </button>
         </span>
       </div>
