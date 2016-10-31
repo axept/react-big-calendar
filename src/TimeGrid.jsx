@@ -275,7 +275,7 @@ export default class TimeGrid extends Component {
 
   renderHeaderCells(range){
     let { dayFormat, culture, components } = this.props;
-    let HeaderComponent = components.header || Header
+    let HeaderComponent = components.header || Header;
 
     return range.map((date, i) =>
       <div
