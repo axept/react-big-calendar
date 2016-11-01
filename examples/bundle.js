@@ -23983,7 +23983,7 @@
 	var weekRangeFormat = function weekRangeFormat(_ref3, culture, local) {
 	  var start = _ref3.start,
 	      end = _ref3.end;
-	  return local.format(start, 'MMM dd', culture) + ' — ' + local.format(end, _dates2.default.eq(start, end, 'month') ? 'dd' : 'MMM dd', culture);
+	  return local.format(start, 'MMMM dd', culture) + ' — ' + local.format(end, _dates2.default.eq(start, end, 'month') ? 'dd' : 'MMMM dd', culture);
 	};
 	
 	var formats = exports.formats = {
@@ -24655,7 +24655,7 @@
 	var weekRangeFormat = function weekRangeFormat(_ref3, culture, local) {
 	  var start = _ref3.start,
 	      end = _ref3.end;
-	  return local.format(start, 'MMM dd', culture) + ' - ' + local.format(end, _dates2.default.eq(start, end, 'month') ? 'dd' : 'MMM dd', culture);
+	  return local.format(start, 'MMMM dd', culture) + ' - ' + local.format(end, _dates2.default.eq(start, end, 'month') ? 'dd' : 'MMMM dd', culture);
 	};
 	
 	var formats = exports.formats = {
@@ -24728,7 +24728,7 @@
 	var weekRangeFormat = function weekRangeFormat(_ref3, culture, local) {
 	  var start = _ref3.start,
 	      end = _ref3.end;
-	  return local.format(start, 'MMM dd', culture) + ' - ' + local.format(end, _dates2.default.eq(start, end, 'month') ? 'dd' : 'MMM dd', culture);
+	  return local.format(start, 'MMMM dd', culture) + ' - ' + local.format(end, _dates2.default.eq(start, end, 'month') ? 'dd' : 'MMMM dd', culture);
 	};
 	
 	var formats = {
@@ -33375,6 +33375,28 @@
 	  return _react2.default.createElement('svg', { className: 'rbc-toolbar-svg-' + value, viewBox: '0 0 32 32' }, _react2.default.createElement('g', null, _react2.default.createElement('polyline', { fill: 'none', stroke: '#000000', strokeWidth: '1', strokeMiterlimit: '10', points: '23.7,31.5 8.3,16 23.7,0.5' })));
 	};
 	
+	var HeaderLabel = function HeaderLabel(_ref2) {
+	  var label = _ref2.label;
+	
+	  var labelSplit = label.split(' ');
+	
+	  switch (labelSplit.length) {
+	    case 2:
+	      return _react2.default.createElement('span', null, _react2.default.createElement('span', { className: 'rbc-toolbar-label-span' }, labelSplit[0]), '\xA0', labelSplit[1]);
+	
+	    case 3:
+	      return _react2.default.createElement('span', null, _react2.default.createElement('span', { className: 'rbc-toolbar-label-span' }, labelSplit[0], ' ', labelSplit[1]), '\xA0', labelSplit[2]);
+	
+	    case 5:
+	      return _react2.default.createElement('span', null, label);
+	
+	    default:
+	      return _react2.default.createElement('span', null, label);
+	  }
+	
+	  return label;
+	};
+	
 	var Toolbar = _react2.default.createClass({
 	  displayName: 'Toolbar',
 	  render: function render() {
@@ -33384,7 +33406,7 @@
 	
 	    messages = (0, _messages2.default)(messages);
 	
-	    return _react2.default.createElement('div', { className: 'rbc-toolbar' }, _react2.default.createElement('span', { className: 'rbc-toolbar-label' }, label), _react2.default.createElement('span', { className: 'rbc-btn-group' }, this.viewNamesGroup(messages)), _react2.default.createElement('span', { className: 'rbc-btn-group' }, _react2.default.createElement('button', {
+	    return _react2.default.createElement('div', { className: 'rbc-toolbar' }, _react2.default.createElement('span', { className: 'rbc-toolbar-label' }, _react2.default.createElement(HeaderLabel, { label: label })), _react2.default.createElement('span', { className: 'rbc-btn-group' }, this.viewNamesGroup(messages)), _react2.default.createElement('span', { className: 'rbc-btn-group' }, _react2.default.createElement('button', {
 	      className: 'rbc-btn-prev',
 	      type: 'button',
 	      onClick: this.navigate.bind(null, _constants.navigate.PREVIOUS)
@@ -34376,7 +34398,7 @@
 	var weekRangeFormat = function weekRangeFormat(_ref3, culture, local) {
 	  var start = _ref3.start,
 	      end = _ref3.end;
-	  return local.format(start, 'MMM DD', culture) + ' - ' + local.format(end, _dates2.default.eq(start, end, 'month') ? 'DD' : 'MMM DD', culture);
+	  return local.format(start, 'MMMM DD', culture) + ' - ' + local.format(end, _dates2.default.eq(start, end, 'month') ? 'DD' : 'MMMM DD', culture);
 	};
 	
 	var formats = exports.formats = {

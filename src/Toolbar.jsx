@@ -11,6 +11,44 @@ const Icon = ({ value }) => (
   </svg>
 );
 
+const HeaderLabel = ({ label }) => {
+  const labelSplit = label.split(' ');
+
+  switch (labelSplit.length) {
+    case 2:
+      return (
+        <span>
+          <span className="rbc-toolbar-label-span">{labelSplit[0]}</span>&nbsp;
+          {labelSplit[1]}
+        </span>
+      );
+
+    case 3:
+      return (
+        <span>
+          <span className="rbc-toolbar-label-span">{labelSplit[0]} {labelSplit[1]}</span>&nbsp;
+          {labelSplit[2]}
+        </span>
+      );
+
+    case 5:
+      return (
+        <span>
+          {label}
+        </span>
+      );
+
+    default:
+      return (
+        <span>
+          {label}
+        </span>
+      );
+  }
+
+  return label;
+};
+
 let Toolbar = React.createClass({
   render() {
     let { messages, label } = this.props;
@@ -20,7 +58,7 @@ let Toolbar = React.createClass({
     return (
       <div className='rbc-toolbar'>
         <span className='rbc-toolbar-label'>
-          { label }
+          <HeaderLabel label={label} />
         </span>
 
         <span className='rbc-btn-group'>
