@@ -29,7 +29,7 @@ let formats = {
   timeGutterFormat: 'h:mm tt',
 
   monthHeaderFormat: 'MMMM yyyy',
-  dayHeaderFormat: 'dddd MMM dd',
+  dayHeaderFormat: 'MMMM dd, yyyy',
   dayRangeHeaderFormat: weekRangeFormat,
   agendaHeaderFormat: dateRangeFormat,
 

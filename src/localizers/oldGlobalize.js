@@ -24,7 +24,7 @@ export let formats = {
   timeGutterFormat: 't',
 
   monthHeaderFormat: 'Y',
-  dayHeaderFormat: 'dddd MMM dd',
+  dayHeaderFormat: 'MMMM dd, yyyy',
   dayRangeHeaderFormat: weekRangeFormat,
   agendaHeaderFormat: dateRangeFormat,
 

@@ -11,7 +11,7 @@ const Formats = {
   [views.AGENDA]: 'agendaHeaderFormat'
 }
 
-export default function viewLabel(date, view, formats, culture){
+export default function viewLabel(date, view, formats, culture) {
   let View = VIEWS[view];
   let headerSingle = view === views.MONTH || view === views.DAY
 

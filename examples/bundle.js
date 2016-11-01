@@ -24669,7 +24669,7 @@
 	  timeGutterFormat: 't',
 	
 	  monthHeaderFormat: 'Y',
-	  dayHeaderFormat: 'dddd MMM dd',
+	  dayHeaderFormat: 'MMMM dd, yyyy',
 	  dayRangeHeaderFormat: weekRangeFormat,
 	  agendaHeaderFormat: dateRangeFormat,
 	
@@ -24743,7 +24743,7 @@
 	  timeGutterFormat: 'h:mm tt',
 	
 	  monthHeaderFormat: 'MMMM yyyy',
-	  dayHeaderFormat: 'dddd MMM dd',
+	  dayHeaderFormat: 'MMMM dd, yyyy',
 	  dayRangeHeaderFormat: weekRangeFormat,
 	  agendaHeaderFormat: dateRangeFormat,
 	
@@ -34383,7 +34383,7 @@
 	  timeGutterFormat: 'LT',
 	
 	  monthHeaderFormat: 'MMMM YYYY',
-	  dayHeaderFormat: 'dddd MMM DD',
+	  dayHeaderFormat: 'MMMM dd, yyyy',
 	  dayRangeHeaderFormat: weekRangeFormat,
 	  agendaHeaderFormat: dateRangeFormat,
 	
