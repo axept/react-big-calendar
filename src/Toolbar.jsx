@@ -3,8 +3,15 @@ import cn from 'classnames';
 import message from './utils/messages';
 import { navigate } from './utils/constants';
 
-let Toolbar = React.createClass({
+const Icon = ({ value }) => (
+  <svg className={`rbc-toolbar-svg-${value}`} viewBox="0 0 32 32">
+    <g>
+        <polyline fill="none" stroke="#000000" strokeWidth="1" strokeMiterlimit="10" points="23.7,31.5 8.3,16 23.7,0.5" />
+    </g>
+  </svg>
+);
 
+let Toolbar = React.createClass({
   render() {
     let { messages, label } = this.props;
 
@@ -24,14 +31,11 @@ let Toolbar = React.createClass({
 
         <span className='rbc-btn-group'>
           <button
+            className="rbc-btn-prev"
             type='button'
             onClick={this.navigate.bind(null, navigate.PREVIOUS)}
           >
-            <svg className='rbc-toolbar-svg-prev' viewBox="0 0 32 32">
-              <g>
-                  <polyline fill="none" stroke="#000000" strokeWidth="1" strokeMiterlimit="10" points="23.7,31.5 8.3,16 23.7,0.5 "></polyline>
-              </g>
-            </svg>
+            <Icon value="prev" />
           </button>
 
           <button
@@ -42,14 +46,11 @@ let Toolbar = React.createClass({
           </button>
 
           <button
+            className="rbc-btn-next"
             type='button'
             onClick={this.navigate.bind(null, navigate.NEXT)}
           >
-            <svg className='rbc-toolbar-svg-next' viewBox="0 0 32 32">
-              <g>
-                  <polyline fill="none" stroke="#000000" strokeWidth="1" strokeMiterlimit="10" points="23.7,31.5 8.3,16 23.7,0.5 "></polyline>
-              </g>
-            </svg>
+            <Icon value="next" />
           </button>
         </span>
       </div>

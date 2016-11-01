@@ -72,6 +72,12 @@
   display: inline-block;
   white-space: nowrap;
 
+  .rbc-btn-prev,
+  .rbc-btn-next {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
   > button:first-child:not(:last-child) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
@@ -105,10 +111,5 @@
   .rbc-rtl & button + button {
     margin-left: 0;
     margin-right: -1px;
-  }
-
-  & + &,
-  & + button {
-    margin-left: 10px;
   }
 }

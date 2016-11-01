@@ -26,7 +26,7 @@ export let formats = {
   timeGutterFormat: { time: 'short' },
 
   monthHeaderFormat: 'MMMM yyyy',
-  dayHeaderFormat: 'eeee MMM dd',
+  dayHeaderFormat: 'MMMM dd, yyyy',
   dayRangeHeaderFormat: weekRangeFormat,
   agendaHeaderFormat: dateRangeFormat,
 
