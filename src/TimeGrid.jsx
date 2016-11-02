@@ -255,7 +255,7 @@ export default class TimeGrid extends Component {
             className='rbc-label rbc-header-gutter'
             style={{ width }}
           >
-            { message(messages).allDay }
+            <span className="rbc-label-span">{ message(messages).allDay }</span>
           </div>
           <div ref='allDay' className='rbc-allday-cell'>
             <BackgroundCells
