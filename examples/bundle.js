@@ -23948,11 +23948,7 @@
 	  });
 	};
 	
-	var _dates = __webpack_require__(231);
-	
-	var _dates2 = _interopRequireDefault(_dates);
-	
-	var _oldGlobalize = __webpack_require__(236);
+	var _oldGlobalize = __webpack_require__(231);
 	
 	var _oldGlobalize2 = _interopRequireDefault(_oldGlobalize);
 	
@@ -23960,14 +23956,15 @@
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _formats = __webpack_require__(237);
+	var _formats = __webpack_require__(232);
 	
-	var _localizer = __webpack_require__(233);
+	var _localizer = __webpack_require__(235);
 	
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
 	}
 	
+	// import dates from '../utils/dates';
 	var dateRangeFormat = function dateRangeFormat(_ref, culture, local) {
 	  var start = _ref.start,
 	      end = _ref.end;
@@ -23980,11 +23977,9 @@
 	  return local.format(start, { time: 'short' }, culture) + ' — ' + local.format(end, { time: 'short' }, culture);
 	};
 	
-	var weekRangeFormat = function weekRangeFormat(_ref3, culture, local) {
-	  var start = _ref3.start,
-	      end = _ref3.end;
-	  return local.format(start, 'MMMM dd', culture) + ' — ' + local.format(end, _dates2.default.eq(start, end, 'month') ? 'dd' : 'MMMM dd', culture);
-	};
+	// let weekRangeFormat = ({ start, end }, culture, local) =>
+	//   local.format(start, 'MMMM dd', culture) +
+	//     ' — ' + local.format(end, dates.eq(start, end, 'month') ? 'dd' : 'MMMM dd', culture)
 	
 	var formats = exports.formats = {
 	  dateFormat: 'dd',
@@ -23998,7 +23993,7 @@
 	
 	  monthHeaderFormat: 'MMMM yyyy',
 	  dayHeaderFormat: 'MMMM dd, yyyy',
-	  dayRangeHeaderFormat: weekRangeFormat,
+	  dayRangeHeaderFormat: 'MMMM yyyy',
 	  agendaHeaderFormat: dateRangeFormat,
 	
 	  agendaDateFormat: 'eee MMM dd',
@@ -24008,6 +24003,165 @@
 
 /***/ },
 /* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	exports.formats = undefined;
+	
+	exports.default = function (globalize) {
+	
+	  function getCulture(culture) {
+	    return culture ? globalize.findClosestCulture(culture) : globalize.culture();
+	  }
+	
+	  function firstOfWeek(culture) {
+	    culture = getCulture(culture);
+	    return culture && culture.calendar.firstDay || 0;
+	  }
+	
+	  (0, _formats.set)(formats);
+	
+	  return (0, _localizer.set)({
+	    firstOfWeek: firstOfWeek,
+	
+	    parse: function parse(value, format, culture) {
+	      return globalize.parseDate(value, format, culture);
+	    },
+	    format: function format(value, _format, culture) {
+	      return globalize.format(value, _format, culture);
+	    }
+	  });
+	};
+	
+	var _formats = __webpack_require__(232);
+	
+	var _localizer = __webpack_require__(235);
+	
+	// import dates from '../utils/dates';
+	var dateRangeFormat = function dateRangeFormat(_ref, culture, local) {
+	  var start = _ref.start,
+	      end = _ref.end;
+	  return local.format(start, 'd', culture) + ' — ' + local.format(end, 'd', culture);
+	};
+	
+	var timeRangeFormat = function timeRangeFormat(_ref2, culture, local) {
+	  var start = _ref2.start,
+	      end = _ref2.end;
+	  return local.format(start, 't', culture) + ' — ' + local.format(end, 't', culture);
+	};
+	
+	// let weekRangeFormat = ({ start, end }, culture, local)=>
+	//   local.format(start, 'MMMM dd', culture) +
+	//     ' - ' + local.format(end, dates.eq(start, end, 'month') ? 'dd' : 'MMMM dd', culture)
+	
+	var formats = exports.formats = {
+	  dateFormat: 'dd',
+	  dayFormat: 'ddd dd',
+	  weekdayFormat: 'ddd',
+	
+	  selectRangeFormat: timeRangeFormat,
+	  eventTimeRangeFormat: timeRangeFormat,
+	
+	  timeGutterFormat: 't',
+	
+	  monthHeaderFormat: 'Y',
+	  dayHeaderFormat: 'MMMM dd, yyyy',
+	  dayRangeHeaderFormat: 'Y',
+	  agendaHeaderFormat: dateRangeFormat,
+	
+	  agendaDateFormat: 'ddd MMM dd',
+	  agendaTimeFormat: 't',
+	  agendaTimeRangeFormat: timeRangeFormat
+	};
+
+/***/ },
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _extends = Object.assign || function (target) {
+	  for (var i = 1; i < arguments.length; i++) {
+	    var source = arguments[i];for (var key in source) {
+	      if (Object.prototype.hasOwnProperty.call(source, key)) {
+	        target[key] = source[key];
+	      }
+	    }
+	  }return target;
+	};
+	
+	exports.set = set;
+	exports.default = format;
+	
+	var _dates = __webpack_require__(233);
+	
+	var _dates2 = _interopRequireDefault(_dates);
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	function inSame12Hr(start, end) {
+	  var s = 12 - _dates2.default.hours(start);
+	  var e = 12 - _dates2.default.hours(end);
+	  return s <= 0 && e <= 0 || s >= 0 && e >= 0;
+	}
+	
+	var dateRangeFormat = function dateRangeFormat(_ref, culture, local) {
+	  var start = _ref.start,
+	      end = _ref.end;
+	  return local.format(start, 'd', culture) + ' — ' + local.format(end, 'd', culture);
+	};
+	
+	var timeRangeFormat = function timeRangeFormat(_ref2, culture, local) {
+	  var start = _ref2.start,
+	      end = _ref2.end;
+	  return local.format(start, 'h:mmtt', culture) + ' — ' + local.format(end, inSame12Hr(start, end) ? 'h:mm' : 'h:mmtt', culture);
+	};
+	
+	// let weekRangeFormat = ({ start, end }, culture, local)=>
+	//   local.format(start, 'MMMM dd', culture) +
+	//     ' - ' + local.format(end, dates.eq(start, end, 'month') ? 'dd' : 'MMMM dd', culture)
+	
+	var formats = {
+	
+	  dateFormat: 'dd',
+	  dayFormat: 'ddd dd',
+	  weekdayFormat: 'ddd',
+	
+	  selectRangeFormat: timeRangeFormat,
+	  eventTimeRangeFormat: timeRangeFormat,
+	
+	  timeGutterFormat: 'h:mm tt',
+	
+	  monthHeaderFormat: 'MMMM yyyy',
+	  dayHeaderFormat: 'MMMM dd, yyyy',
+	  dayRangeHeaderFormat: 'MMMM yyyy',
+	  agendaHeaderFormat: dateRangeFormat,
+	
+	  agendaDateFormat: 'ddd MMM dd',
+	  agendaTimeFormat: 'hh:mm tt',
+	  agendaTimeRangeFormat: timeRangeFormat
+	};
+	
+	function set(_formats) {
+	  var _formats2;
+	
+	  if (arguments.length > 1) _formats = (_formats2 = {}, _formats2[_formats] = arguments[1], _formats2);
+	
+	  _extends(formats, _formats);
+	}
+	
+	function format(fmts) {
+	  return _extends({}, formats, fmts);
+	}
+
+/***/ },
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24024,15 +24178,15 @@
 	  }return target;
 	}; /* eslint no-fallthrough: 0 */
 	
-	var _dateArithmetic = __webpack_require__(232);
+	var _dateArithmetic = __webpack_require__(234);
 	
 	var _dateArithmetic2 = _interopRequireDefault(_dateArithmetic);
 	
-	var _localizer = __webpack_require__(233);
+	var _localizer = __webpack_require__(235);
 	
 	var _localizer2 = _interopRequireDefault(_localizer);
 	
-	var _constants = __webpack_require__(235);
+	var _constants = __webpack_require__(237);
 	
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
@@ -24182,7 +24336,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 232 */
+/* 234 */
 /***/ function(module, exports) {
 
 	var MILI    = 'milliseconds'
@@ -24409,7 +24563,7 @@
 
 
 /***/ },
-/* 233 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24419,7 +24573,7 @@
 	
 	var _react = __webpack_require__(9);
 	
-	var _invariant = __webpack_require__(234);
+	var _invariant = __webpack_require__(236);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
@@ -24515,7 +24669,7 @@
 	}
 
 /***/ },
-/* 234 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -24573,7 +24727,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ },
-/* 235 */
+/* 237 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -24593,176 +24747,6 @@
 	  DAY: 'day',
 	  AGENDA: 'agenda'
 	};
-
-/***/ },
-/* 236 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	exports.__esModule = true;
-	exports.formats = undefined;
-	
-	exports.default = function (globalize) {
-	
-	  function getCulture(culture) {
-	    return culture ? globalize.findClosestCulture(culture) : globalize.culture();
-	  }
-	
-	  function firstOfWeek(culture) {
-	    culture = getCulture(culture);
-	    return culture && culture.calendar.firstDay || 0;
-	  }
-	
-	  (0, _formats.set)(formats);
-	
-	  return (0, _localizer.set)({
-	    firstOfWeek: firstOfWeek,
-	
-	    parse: function parse(value, format, culture) {
-	      return globalize.parseDate(value, format, culture);
-	    },
-	    format: function format(value, _format, culture) {
-	      return globalize.format(value, _format, culture);
-	    }
-	  });
-	};
-	
-	var _dates = __webpack_require__(231);
-	
-	var _dates2 = _interopRequireDefault(_dates);
-	
-	var _formats = __webpack_require__(237);
-	
-	var _localizer = __webpack_require__(233);
-	
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-	
-	var dateRangeFormat = function dateRangeFormat(_ref, culture, local) {
-	  var start = _ref.start,
-	      end = _ref.end;
-	  return local.format(start, 'd', culture) + ' — ' + local.format(end, 'd', culture);
-	};
-	
-	var timeRangeFormat = function timeRangeFormat(_ref2, culture, local) {
-	  var start = _ref2.start,
-	      end = _ref2.end;
-	  return local.format(start, 't', culture) + ' — ' + local.format(end, 't', culture);
-	};
-	
-	var weekRangeFormat = function weekRangeFormat(_ref3, culture, local) {
-	  var start = _ref3.start,
-	      end = _ref3.end;
-	  return local.format(start, 'MMMM dd', culture) + ' - ' + local.format(end, _dates2.default.eq(start, end, 'month') ? 'dd' : 'MMMM dd', culture);
-	};
-	
-	var formats = exports.formats = {
-	  dateFormat: 'dd',
-	  dayFormat: 'ddd dd',
-	  weekdayFormat: 'ddd',
-	
-	  selectRangeFormat: timeRangeFormat,
-	  eventTimeRangeFormat: timeRangeFormat,
-	
-	  timeGutterFormat: 't',
-	
-	  monthHeaderFormat: 'Y',
-	  dayHeaderFormat: 'MMMM dd, yyyy',
-	  dayRangeHeaderFormat: weekRangeFormat,
-	  agendaHeaderFormat: dateRangeFormat,
-	
-	  agendaDateFormat: 'ddd MMM dd',
-	  agendaTimeFormat: 't',
-	  agendaTimeRangeFormat: timeRangeFormat
-	};
-
-/***/ },
-/* 237 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	exports.__esModule = true;
-	
-	var _extends = Object.assign || function (target) {
-	  for (var i = 1; i < arguments.length; i++) {
-	    var source = arguments[i];for (var key in source) {
-	      if (Object.prototype.hasOwnProperty.call(source, key)) {
-	        target[key] = source[key];
-	      }
-	    }
-	  }return target;
-	};
-	
-	exports.set = set;
-	exports.default = format;
-	
-	var _dates = __webpack_require__(231);
-	
-	var _dates2 = _interopRequireDefault(_dates);
-	
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-	
-	function inSame12Hr(start, end) {
-	  var s = 12 - _dates2.default.hours(start);
-	  var e = 12 - _dates2.default.hours(end);
-	  return s <= 0 && e <= 0 || s >= 0 && e >= 0;
-	}
-	
-	var dateRangeFormat = function dateRangeFormat(_ref, culture, local) {
-	  var start = _ref.start,
-	      end = _ref.end;
-	  return local.format(start, 'd', culture) + ' — ' + local.format(end, 'd', culture);
-	};
-	
-	var timeRangeFormat = function timeRangeFormat(_ref2, culture, local) {
-	  var start = _ref2.start,
-	      end = _ref2.end;
-	  return local.format(start, 'h:mmtt', culture) + ' — ' + local.format(end, inSame12Hr(start, end) ? 'h:mm' : 'h:mmtt', culture);
-	};
-	
-	var weekRangeFormat = function weekRangeFormat(_ref3, culture, local) {
-	  var start = _ref3.start,
-	      end = _ref3.end;
-	  return local.format(start, 'MMMM dd', culture) + ' - ' + local.format(end, _dates2.default.eq(start, end, 'month') ? 'dd' : 'MMMM dd', culture);
-	};
-	
-	var formats = {
-	
-	  dateFormat: 'dd',
-	  dayFormat: 'ddd dd',
-	  weekdayFormat: 'ddd',
-	
-	  selectRangeFormat: timeRangeFormat,
-	  eventTimeRangeFormat: timeRangeFormat,
-	
-	  timeGutterFormat: 'h:mm tt',
-	
-	  monthHeaderFormat: 'MMMM yyyy',
-	  dayHeaderFormat: 'MMMM dd, yyyy',
-	  dayRangeHeaderFormat: weekRangeFormat,
-	  agendaHeaderFormat: dateRangeFormat,
-	
-	  agendaDateFormat: 'ddd MMM dd',
-	  agendaTimeFormat: 'hh:mm tt',
-	  agendaTimeRangeFormat: timeRangeFormat
-	};
-	
-	function set(_formats) {
-	  var _formats2;
-	
-	  if (arguments.length > 1) _formats = (_formats2 = {}, _formats2[_formats] = arguments[1], _formats2);
-	
-	  _extends(formats, _formats);
-	}
-	
-	function format(fmts) {
-	  return _extends({}, formats, fmts);
-	}
 
 /***/ },
 /* 238 */
@@ -26881,7 +26865,7 @@
 	
 	var _Calendar2 = _interopRequireDefault(_Calendar);
 	
-	var _localizer = __webpack_require__(233);
+	var _localizer = __webpack_require__(235);
 	
 	var _moment = __webpack_require__(353);
 	
@@ -26899,7 +26883,7 @@
 	
 	var _move2 = _interopRequireDefault(_move);
 	
-	var _constants = __webpack_require__(235);
+	var _constants = __webpack_require__(237);
 	
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
@@ -26957,19 +26941,19 @@
 	
 	var _propTypes = __webpack_require__(254);
 	
-	var _localizer = __webpack_require__(233);
+	var _localizer = __webpack_require__(235);
 	
 	var _localizer2 = _interopRequireDefault(_localizer);
 	
 	var _helpers = __webpack_require__(258);
 	
-	var _constants = __webpack_require__(235);
+	var _constants = __webpack_require__(237);
 	
-	var _dates = __webpack_require__(231);
+	var _dates = __webpack_require__(233);
 	
 	var _dates2 = _interopRequireDefault(_dates);
 	
-	var _formats = __webpack_require__(237);
+	var _formats = __webpack_require__(232);
 	
 	var _formats2 = _interopRequireDefault(_formats);
 	
@@ -27564,7 +27548,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _invariant = __webpack_require__(234);
+	var _invariant = __webpack_require__(236);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
@@ -27728,7 +27712,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _invariant = __webpack_require__(234);
+	var _invariant = __webpack_require__(236);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
@@ -27846,7 +27830,7 @@
 	
 	var _react = __webpack_require__(9);
 	
-	var _localizer = __webpack_require__(233);
+	var _localizer = __webpack_require__(235);
 	
 	var _localizer2 = _interopRequireDefault(_localizer);
 	
@@ -27858,7 +27842,7 @@
 	
 	var _all2 = _interopRequireDefault(_all);
 	
-	var _constants = __webpack_require__(235);
+	var _constants = __webpack_require__(237);
 	
 	var _common = __webpack_require__(256);
 	
@@ -28062,13 +28046,13 @@
 	
 	exports.default = viewLabel;
 	
-	var _constants = __webpack_require__(235);
+	var _constants = __webpack_require__(237);
 	
-	var _formats = __webpack_require__(237);
+	var _formats = __webpack_require__(232);
 	
 	var _formats2 = _interopRequireDefault(_formats);
 	
-	var _localizer = __webpack_require__(233);
+	var _localizer = __webpack_require__(235);
 	
 	var _localizer2 = _interopRequireDefault(_localizer);
 	
@@ -28104,7 +28088,7 @@
 	
 	var _VIEWS;
 	
-	var _constants = __webpack_require__(235);
+	var _constants = __webpack_require__(237);
 	
 	var _Month = __webpack_require__(261);
 	
@@ -28159,11 +28143,11 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _dates2 = __webpack_require__(231);
+	var _dates2 = __webpack_require__(233);
 	
 	var _dates3 = _interopRequireDefault(_dates2);
 	
-	var _localizer = __webpack_require__(233);
+	var _localizer = __webpack_require__(235);
 	
 	var _localizer2 = _interopRequireDefault(_localizer);
 	
@@ -28171,7 +28155,7 @@
 	
 	var _chunk2 = _interopRequireDefault(_chunk);
 	
-	var _constants = __webpack_require__(235);
+	var _constants = __webpack_require__(237);
 	
 	var _helpers = __webpack_require__(258);
 	
@@ -29331,7 +29315,7 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _dates = __webpack_require__(231);
+	var _dates = __webpack_require__(233);
 	
 	var _dates2 = _interopRequireDefault(_dates);
 	
@@ -29435,7 +29419,7 @@
 	exports.segsOverlap = segsOverlap;
 	exports.sortEvents = sortEvents;
 	
-	var _dates = __webpack_require__(231);
+	var _dates = __webpack_require__(233);
 	
 	var _dates2 = _interopRequireDefault(_dates);
 	
@@ -29786,7 +29770,7 @@
 	exports.result = result;
 	exports.default = messages;
 	
-	var _invariant = __webpack_require__(234);
+	var _invariant = __webpack_require__(236);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
@@ -29932,7 +29916,7 @@
 	
 	var _selection = __webpack_require__(288);
 	
-	var _localizer = __webpack_require__(233);
+	var _localizer = __webpack_require__(235);
 	
 	var _localizer2 = _interopRequireDefault(_localizer);
 	
@@ -31762,7 +31746,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _dates = __webpack_require__(231);
+	var _dates = __webpack_require__(233);
 	
 	var _dates2 = _interopRequireDefault(_dates);
 	
@@ -31770,7 +31754,7 @@
 	
 	var _TimeGrid2 = _interopRequireDefault(_TimeGrid);
 	
-	var _constants = __webpack_require__(235);
+	var _constants = __webpack_require__(237);
 	
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
@@ -31846,11 +31830,11 @@
 	
 	var _reactDom = __webpack_require__(92);
 	
-	var _dates = __webpack_require__(231);
+	var _dates = __webpack_require__(233);
 	
 	var _dates2 = _interopRequireDefault(_dates);
 	
-	var _localizer = __webpack_require__(233);
+	var _localizer = __webpack_require__(235);
 	
 	var _localizer2 = _interopRequireDefault(_localizer);
 	
@@ -31890,7 +31874,7 @@
 	
 	var _helpers = __webpack_require__(258);
 	
-	var _constants = __webpack_require__(235);
+	var _constants = __webpack_require__(237);
 	
 	var _accessors = __webpack_require__(286);
 	
@@ -32324,13 +32308,13 @@
 	
 	var _Selection2 = _interopRequireDefault(_Selection);
 	
-	var _dates = __webpack_require__(231);
+	var _dates = __webpack_require__(233);
 	
 	var _dates2 = _interopRequireDefault(_dates);
 	
 	var _selection = __webpack_require__(288);
 	
-	var _localizer = __webpack_require__(233);
+	var _localizer = __webpack_require__(235);
 	
 	var _localizer2 = _interopRequireDefault(_localizer);
 	
@@ -32663,7 +32647,7 @@
 	
 	var _classnames2 = _interopRequireDefault(_classnames);
 	
-	var _dates = __webpack_require__(231);
+	var _dates = __webpack_require__(233);
 	
 	var _dates2 = _interopRequireDefault(_dates);
 	
@@ -32781,11 +32765,11 @@
 	
 	var _TimeSlot2 = _interopRequireDefault(_TimeSlot);
 	
-	var _dates = __webpack_require__(231);
+	var _dates = __webpack_require__(233);
 	
 	var _dates2 = _interopRequireDefault(_dates);
 	
-	var _localizer = __webpack_require__(233);
+	var _localizer = __webpack_require__(235);
 	
 	var _localizer2 = _interopRequireDefault(_localizer);
 	
@@ -33006,15 +32990,15 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _dates = __webpack_require__(231);
+	var _dates = __webpack_require__(233);
 	
 	var _dates2 = _interopRequireDefault(_dates);
 	
-	var _localizer = __webpack_require__(233);
+	var _localizer = __webpack_require__(235);
 	
 	var _localizer2 = _interopRequireDefault(_localizer);
 	
-	var _constants = __webpack_require__(235);
+	var _constants = __webpack_require__(237);
 	
 	var _TimeGrid = __webpack_require__(313);
 	
@@ -33085,15 +33069,15 @@
 	
 	var _messages2 = _interopRequireDefault(_messages);
 	
-	var _localizer = __webpack_require__(233);
+	var _localizer = __webpack_require__(235);
 	
 	var _localizer2 = _interopRequireDefault(_localizer);
 	
-	var _dates = __webpack_require__(231);
+	var _dates = __webpack_require__(233);
 	
 	var _dates2 = _interopRequireDefault(_dates);
 	
-	var _constants = __webpack_require__(235);
+	var _constants = __webpack_require__(237);
 	
 	var _accessors = __webpack_require__(286);
 	
@@ -33319,7 +33303,7 @@
 	exports.__esModule = true;
 	exports.default = moveDate;
 	
-	var _constants = __webpack_require__(235);
+	var _constants = __webpack_require__(237);
 	
 	var _Views = __webpack_require__(260);
 	
@@ -33364,7 +33348,7 @@
 	
 	var _messages2 = _interopRequireDefault(_messages);
 	
-	var _constants = __webpack_require__(235);
+	var _constants = __webpack_require__(237);
 	
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
@@ -34365,13 +34349,13 @@
 	  });
 	};
 	
-	var _dates = __webpack_require__(231);
+	var _dates = __webpack_require__(233);
 	
 	var _dates2 = _interopRequireDefault(_dates);
 	
-	var _formats = __webpack_require__(237);
+	var _formats = __webpack_require__(232);
 	
-	var _localizer = __webpack_require__(233);
+	var _localizer = __webpack_require__(235);
 	
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
@@ -34395,11 +34379,9 @@
 	  return local.format(start, 'h:mma', culture) + ' — ' + local.format(end, inSame12Hr(start, end) ? 'h:mm' : 'h:mma', culture);
 	};
 	
-	var weekRangeFormat = function weekRangeFormat(_ref3, culture, local) {
-	  var start = _ref3.start,
-	      end = _ref3.end;
-	  return local.format(start, 'MMMM DD', culture) + ' - ' + local.format(end, _dates2.default.eq(start, end, 'month') ? 'DD' : 'MMMM DD', culture);
-	};
+	// let weekRangeFormat = ({ start, end }, culture, local)=>
+	//   local.format(start, 'MMMM DD', culture) +
+	//     ' - ' + local.format(end, dates.eq(start, end, 'month') ? 'DD' : 'MMMM DD', culture)
 	
 	var formats = exports.formats = {
 	  dateFormat: 'DD',
@@ -34413,7 +34395,7 @@
 	
 	  monthHeaderFormat: 'MMMM YYYY',
 	  dayHeaderFormat: 'MMMM DD, YYYY',
-	  dayRangeHeaderFormat: weekRangeFormat,
+	  dayRangeHeaderFormat: 'MMMM YYYY',
 	  agendaHeaderFormat: dateRangeFormat,
 	
 	  agendaDateFormat: 'ddd MMM DD',
@@ -35452,17 +35434,17 @@
 	
 	var _events2 = _interopRequireDefault(_events);
 	
-	var _constants = __webpack_require__(235);
+	var _constants = __webpack_require__(237);
 	
 	var _Week2 = __webpack_require__(320);
 	
 	var _Week3 = _interopRequireDefault(_Week2);
 	
-	var _dates = __webpack_require__(231);
+	var _dates = __webpack_require__(233);
 	
 	var _dates2 = _interopRequireDefault(_dates);
 	
-	var _localizer = __webpack_require__(233);
+	var _localizer = __webpack_require__(235);
 	
 	var _localizer2 = _interopRequireDefault(_localizer);
 	

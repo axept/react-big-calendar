@@ -1,4 +1,4 @@
-import dates from '../utils/dates';
+// import dates from '../utils/dates';
 import { set } from '../formats';
 import { set as setLocalizer } from '../localizer';
 
@@ -9,9 +9,9 @@ let timeRangeFormat = ({ start, end }, culture, local)=>
   local.format(start, 't', culture) +
     ' — ' + local.format(end, 't', culture)
 
-let weekRangeFormat = ({ start, end }, culture, local)=>
-  local.format(start, 'MMMM dd', culture) +
-    ' - ' + local.format(end, dates.eq(start, end, 'month') ? 'dd' : 'MMMM dd', culture)
+// let weekRangeFormat = ({ start, end }, culture, local)=>
+//   local.format(start, 'MMMM dd', culture) +
+//     ' - ' + local.format(end, dates.eq(start, end, 'month') ? 'dd' : 'MMMM dd', culture)
 
 export let formats = {
   dateFormat: 'dd',
@@ -25,7 +25,7 @@ export let formats = {
 
   monthHeaderFormat: 'Y',
   dayHeaderFormat: 'MMMM dd, yyyy',
-  dayRangeHeaderFormat: weekRangeFormat,
+  dayRangeHeaderFormat: 'Y',
   agendaHeaderFormat: dateRangeFormat,
 
   agendaDateFormat: 'ddd MMM dd',
