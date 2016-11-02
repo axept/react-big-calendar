@@ -32131,7 +32131,7 @@
 	      },
 	      className: 'rbc-label rbc-header-gutter',
 	      style: { width: width }
-	    }, (0, _messages2.default)(messages).allDay), _react2.default.createElement('div', { ref: 'allDay', className: 'rbc-allday-cell' }, _react2.default.createElement(_BackgroundCells2.default, {
+	    }, _react2.default.createElement('span', { className: 'rbc-label-span' }, (0, _messages2.default)(messages).allDay)), _react2.default.createElement('div', { ref: 'allDay', className: 'rbc-allday-cell' }, _react2.default.createElement(_BackgroundCells2.default, {
 	      slots: range.length,
 	      container: function container() {
 	        return _this5.refs.allDay;
